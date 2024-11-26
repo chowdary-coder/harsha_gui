@@ -12,7 +12,7 @@ class MultiClientApp(tk.Tk):
 
         style = ttk.Style()
         style.theme_use('clam')
-        style.configure("TNotebook.Tab", background="#b3d9ff", font=("Helvetica", 8, "bold"), foreground="black")
+        style.configure("TNotebook.Tab", background="#93b874", font=("Helvetica", 8, "bold"), foreground="#ffffff")
         style.map("TNotebook.Tab", background=[("selected", "lightgreen")], foreground=[("selected", "blue")])
 
         # Create a notebook to hold multiple client tabs
@@ -54,7 +54,7 @@ class ClientFrame(ttk.Frame):
 
         # Checkbox to use file paths from config.json
         self.use_config_var = tk.BooleanVar()
-        use_config_check = ttk.Checkbutton(menu_frame, text="Use Previous Config File Paths", 
+        use_config_check = ttk.Checkbutton(menu_frame, text="Use Previous Config File Paths",
                                            variable=self.use_config_var, command=self.toggle_file_entry)
         use_config_check.pack(side="left")
 
@@ -96,7 +96,7 @@ class ClientFrame(ttk.Frame):
         page_frame = ttk.Frame(self.container)
         
         # Client-specific labels and upload fields
-        label = ttk.Label(page_frame, text=f" {client_name} Calculations", font=("Helvetica", 16), background='#cce6ff')
+        label = ttk.Label(page_frame, text=f" {client_name} Calculations", font=("Helvetica", 16, "bold"))
         label.pack(pady=10)
 
         # Determine how many upload options based on client
