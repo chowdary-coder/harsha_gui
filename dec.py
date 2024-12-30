@@ -18,6 +18,8 @@ def go_to_upload_page():
     # Show the file upload page
     upload_frame.pack(fill='both', expand=True)
     update_window_size()
+    # Update the client name in the header on the upload page
+    update_client_header(selected_client.get())
 
 def go_home():
     # Go back to the client selection page
@@ -41,6 +43,10 @@ def submit_file():
         perform_operation(file_path, client)
     else:
         messagebox.showwarning("Warning", "Please select a file to upload.")
+
+def update_client_header(client_name):
+    # Update the header label with the selected client name
+    client_header_label.config(text=f"Client: {client_name}")
 
 def apply_theme(theme):
     if theme == "Light":
@@ -141,21 +147,25 @@ next_button.pack(pady=20)
 # File upload page
 upload_frame = ttk.Frame(root, padding="20 20 20 20")
 
+# Header label for client name in the upload page (centered)
+client_header_label = ttk.Label(upload_frame, text="", font=(font_family, 12, 'bold'), anchor='center')
+client_header_label.grid(row=0, column=0, columnspan=2, pady=10)
+
 upload_label = ttk.Label(upload_frame, text="Upload a File:")
-upload_label.grid(row=0, column=0, sticky=tk.W, pady=5)
+upload_label.grid(row=1, column=0, sticky=tk.W, pady=5)
 
 file_path_var = tk.StringVar()
 
 # Set the width of the file path entry (e.g., width = 40)
 file_path_entry = ttk.Entry(upload_frame, textvariable=file_path_var, state="readonly", font=(font_family, font_size), width=40)
-file_path_entry.grid(row=1, column=0, sticky=tk.W+tk.E, pady=5)
+file_path_entry.grid(row=2, column=0, sticky=tk.W+tk.E, pady=5)
 
 browse_button = ttk.Button(upload_frame, text="Browse", command=upload_file, style='Browse.TButton')
-browse_button.grid(row=1, column=1, padx=5, pady=5)
+browse_button.grid(row=2, column=1, padx=5, pady=5)
 
 # Submit button to perform the operation
 submit_button = ttk.Button(upload_frame, text="Submit", command=submit_file, style='Submit.TButton')
-submit_button.grid(row=2, column=0, columnspan=2, pady=20)
+submit_button.grid(row=3, column=0, columnspan=2, pady=20)
 
 # Hide the upload frame initially
 upload_frame.pack_forget()
