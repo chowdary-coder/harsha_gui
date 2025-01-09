@@ -12,7 +12,7 @@ class Application(tk.Tk):
         self.geometry("700x400")
         self.minsize(700, 400)
         self.maxsize(700, 400)
-        self.config(bg="#F5F5F5")
+        self.config(bg="#F5F5F5")  # Light mode by default
 
         # Dark mode variable
         self.dark_mode = BooleanVar(value=False)
@@ -76,21 +76,36 @@ class Application(tk.Tk):
         dark_mode_check.pack(side="bottom", pady=10)
 
     def toggle_dark_mode(self):
+        # Define colors for dark and light modes
         bg_color = "#121212" if self.dark_mode.get() else "#F5F5F5"
         frame1_color = "#1E1E1E" if self.dark_mode.get() else "#D6E4F0"
         frame2_color = "#1E1E1E" if self.dark_mode.get() else "#FFFFFF"
         widget_fg = "#E0E0E0" if self.dark_mode.get() else "#000000"
         active_bg = "#616161" if self.dark_mode.get() else "#A9C4D5"
-
+        button_bg = "#607D8B" if self.dark_mode.get() else "#B3D4EA"
+        button_active_bg = "#4CAF50" if self.dark_mode.get() else "#A9C4D5"
+        
+        # Apply the selected theme (dark or light)
         self.config(bg=bg_color)
         self.frame1.config(bg=frame1_color)
         self.frame2.config(bg=frame2_color)
 
+        # Update widgets in frame1
         for widget in self.frame1.winfo_children():
             widget.config(bg=frame1_color, fg=widget_fg, activebackground=active_bg)
 
+        # Update widgets in frame2
         for widget in self.frame2.winfo_children():
             widget.config(bg=frame2_color, fg=widget_fg, activebackground=active_bg)
+
+        # Update buttons' color in both frames
+        for button in self.frame1.winfo_children():
+            if isinstance(button, tk.Button):
+                button.config(bg=button_bg, activebackground=button_active_bg)
+
+        for button in self.frame2.winfo_children():
+            if isinstance(button, tk.Button):
+                button.config(bg=button_bg, activebackground=button_active_bg)
 
     def show_home(self):
         self.clear_frame2()
